@@ -1,0 +1,23 @@
+.feedback {
+  font-size: 1.4rem;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+
+  &--success {
+    color: $success-color;
+  }
+
+  &--warning {
+    color: $pending-color;
+  }
+
+  &--error {
+    color: $fail-color;
+  }
+
+  &--info {
+    opacity: 0.4;
+  }
+}

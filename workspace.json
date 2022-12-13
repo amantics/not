@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "frontend": "apps/frontend",
+    "frontend-e2e": "apps/frontend-e2e",
+    "hardhat": "libs/hardhat",
+    "server": "apps/server",
+    "shared": "libs/shared",
+    "web": "apps/web",
+    "web-e2e": "apps/web-e2e"
+  }
+}

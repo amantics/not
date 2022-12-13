@@ -1,0 +1,27 @@
+.btn {
+  padding: 0.8rem 1rem;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
+  &--primary {
+    background-color: $primary-color;
+    color: $dark-color;
+
+    &:hover {
+      background-color: $primary-hover-color;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: revert;
+  }
+}

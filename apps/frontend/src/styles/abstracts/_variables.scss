@@ -1,0 +1,92 @@
+@mixin dark {
+  --primary-color: #6beba4;
+  --secondary-color: #1a1c1e;
+  --secondary-hover-color: #2f3236;
+  --tritiary-color: #1e2022;
+  --primary-bg-color: #0e1012;
+
+  --secondary-bg-color: #141415;
+  --secondary-bg-hover-color: #2a2a2d;
+
+  --primary-text-color: #fff;
+
+  --line-color: #ffffff33;
+
+  --fail-color: #da2f32;
+  --success-color: #6beba4;
+  --pending-color: #fd7e14;
+  --theme-btn-bg: #0e1012;
+  --theme-btn-active-bg: #1a1c1e;
+  --highlight-text-color: #35343c;
+  --theme-ball-color: #141415;
+  --theme-track-color: #fff;
+}
+
+@mixin light {
+  --primary-color: #6beba4;
+  --secondary-color: #e5e3e1;
+  --secondary-hover-color: #cfccc8;
+  --tritiary-color: #e5e3e1;
+  --primary-bg-color: #f1efed;
+
+  --secondary-bg-color: #ebebea;
+  --secondary-bg-hover-color: #ededec;
+
+  --primary-text-color: #000;
+
+  --line-color: #00000033;
+
+  --fail-color: #da2f32;
+  --success-color: #6beba4;
+  --pending-color: #fd7e14;
+  --theme-btn-bg: #e5e3e1;
+  --theme-btn-active-bg: #f1efed;
+  --highlight-text-color: #f9e8bd;
+  --theme-ball-color: #fff;
+  --theme-track-color: #141415;
+}
+
+$primary-color: #6beba4;
+$secondary-color: var(--secondary-color);
+$secondary-hover-color: var(--secondary-hover-color);
+$tritiary-color: var(--tritiary-color);
+$primary-bg-color: var(--primary-bg-color);
+
+$secondary-bg-color: var(--secondary-bg-color);
+$secondary-bg-hover-color: var(--secondary-bg-hover-color);
+
+$primary-text-color: var(--primary-text-color);
+
+$line-color: var(--line-color);
+
+$fail-color: #da2f32;
+$success-color: #6beba4;
+$pending-color: #fd7e14;
+$theme-btn-bg: var(--theme-btn-bg);
+$theme-btn-active-bg: var(--theme-btn-active-bg);
+
+$theme-ball-color: var(--theme-ball-color);
+$theme-track-color: var(--theme-track-color);
+
+$primary-hover-color: darken(#6beba4, 10%);
+$font-primary: "Roboto", sans-serif;
+
+$dark-color: #1a1c1e;
+$highlight-text-color: var(--highlight-text-color);
+
+.auto {
+  @media (prefers-color-scheme: dark) {
+    @include dark;
+  }
+  @media (prefers-color-scheme: light) {
+    @include light;
+  }
+}
+
+.dark {
+  @include dark;
+}
+
+.light {
+  @include light;
+}

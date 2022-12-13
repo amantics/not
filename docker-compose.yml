@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+  hardhat:
+    restart: always
+    build:
+      target: hardhat
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8545:8545"
+    networks:
+      - notary
+  database:
+    image: 'bitnami/postgresql:latest'
+    container_name: notary_database
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      - POSTGRESQL_PASSWORD=${DATABASE_PASSWORD:-password}
+      - POSTGRESQL_USERNAME=${DATABASE_USERNAME:-user}
+      - POSTGRESQL_DATABASE=${DATABASE_NAME:-notary}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    restart: always
+    networks:
+      - notary
+  app:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DEV_PLATFORM=DOCKER
+      - PORT=${PORT:-3000}
+    networks:
+      - notary
+    depends_on:
+      - database
+      - hardhat
+    ports:
+      - "3000:${PORT:-3000}"
+    volumes:
+      - ./apps:/app/apps
+      - ./libs:/app/libs
+      - ./hardhat.config.ts:/app/hardhat.config.ts
+      - ./package.json:/app/package.json
+      - ./start.sh:/app/start.sh
+networks:
+  notary:
+    driver: bridge
+volumes:
+  database:
+    driver: local

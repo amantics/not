@@ -1,0 +1,27 @@
+stateDiagram-v2
+state "Entrer les détails de l'opération" as operation_details
+state "En attente" as idle
+state "Opération terminée" as ended
+state "Saisir l'engagement notarié" as engagement_notarie
+state "Ajouter et signer le dépôt" as add_and_sign_deposit
+state "Ajouter la signature à la minute" as add_signature_la_minute
+state "ajouter un certificat de paiement des impôts" as add_tax_payment_certificate
+state "ajouter la formalisation des garanties" as add_formalization_of_guaranty
+state "ajouter le paiement des bénéficiaires" as add_beneficiary_payment
+state "apurer operation" as end_operation
+
+[*] --> operation_details
+operation_details --> idle : Créé
+idle --> end_operation
+idle --> engagement_notarie : Accrodé
+engagement_notarie --> idle : Des fonds non encore débloqué
+engagement_notarie --> add_and_sign_deposit : des fonds débloqué
+add_and_sign_deposit --> add_signature_la_minute : dépôt accepté
+add_signature_la_minute --> add_tax_payment_certificate
+add_tax_payment_certificate --> add_formalization_of_guaranty
+add_formalization_of_guaranty --> add_beneficiary_payment
+add_beneficiary_payment --> ended : Bénéficiaires payés
+
+end_operation --> ended
+idle --> ended : rejeté
+ended --> [*]

@@ -1,0 +1,52 @@
+
+sequenceDiagram
+Actor Notaire
+participant Notary
+Actor Bank as Banque operator
+Actor CDG as CDG operator
+Actor DGI as DGI operator
+Actor ANCFCC as ANCFCC operator
+
+
+Notaire ->> Notary : Créer la transaction
+activate Notary
+Notary ->> Notaire : demandez les détails de l'opération et le "compromis de vente"
+Notaire -->> Notary : les détails de l'opération et le "compromis de vente" saisi
+
+Notary ->> Bank : demander l'approbation de l'opération
+alt l'opération est prét
+Bank -->> Notary : prét
+Notary ->> Notaire : demander le document "engagement notarié"
+else
+Bank -->> Notary : rejeté
+Notary ->> Notaire : arrêt de l'opération
+end
+
+Notaire -->> Notary : document "engagement notarié" saisi
+Notary ->> Bank : demander le déblocage des fonds
+alt Les fonds sont débloqués
+Bank -->> Notary : fonds débloqués
+Notary ->> Notaire : demande de signature de dépôt
+else
+Bank -->> Notary : les fonds ne sont pas encore débloqués
+Notary ->> Notaire : arrêt de l'opération
+end
+Notaire -->> Notary : signature du dépôt saisie
+Notary ->> CDG : demander l'acceptation de la signature et le recu du dépôt
+alt le dépôt est accepté
+CDG -->> Notary : le dépôt est accepté et recu de dépôt est saisi
+Notary ->> Notaire : demander le document "signature à la minute"
+else
+CDG -->> Notary : rejeté
+Notary ->> Notaire : arrêt de l'opération
+end
+Notaire -->> Notary : document "signature à la minute" saisi
+Notary ->> DGI : demander le certificat de paiement des impôts
+DGI -->> Notary :le certificat de paiement des impôts saisi
+Notary ->> ANCFCC : demander la formalisation de la garantie
+ANCFCC -->> Notary : la formalisation de la garantie saisi
+Notary ->> CDG : demander le paiement du bénéficiaire
+CDG -->> Notary : bénéficiaire payé
+Notaire -->> Notary : apurer de l'opération
+Notary -->> Notaire : l'opération apuré
+deactivate Notary
